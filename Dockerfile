@@ -12,4 +12,4 @@ COPY
 
 CMD ["bash", "srcs/launch_server.sh"]
 
-EXPOSE 80 8080
+#EXPOSE 80 pouet
