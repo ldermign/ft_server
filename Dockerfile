@@ -10,26 +10,27 @@ RUN apt-get -y install mariadb-server
 RUN apt-get -y install php7.3 php7.3-mysql php-fpm php-pdo php-gd php-cli php-mbstring
 
 # localisation des recherches server-web, obligation unzip, dou wget
-#WORKDIR /var/www/html/
+WORKDIR /var/www/html/
 
 # installation phpMyAdmin
-#RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-english.tar.gz
-#RUN tar -xf phpMyAdmin-5.0.1-english.tar.gz && rm -rf phpMyAdmin-5.0.1-english.tar.gz
-#RUN mv phpMyAdmin-5.0.1-english phpmyadmin
+RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-english.tar.gz
+RUN tar -xf phpMyAdmin-5.0.1-english.tar.gz && rm -rf phpMyAdmin-5.0.1-english.tar.gz
+RUN mv phpMyAdmin-5.0.1-english phpmyadmin
 
 WORKDIR /tmp
 # move dossier srcs dans tmp conteneur
 COPY ./srcs/ .
+COPY ./srcs/config.inc.php ../phpmyadmin/
 
-#WORKDIR /var/www/html/
+WORKDIR /var/www/html/
 # installer wordpress
-#RUN wget https://wordpress.org/latest.tar.gz
-#RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz
+RUN wget https://wordpress.org/latest.tar.gz
+RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz
 
-#COPY ./srcs/wp-config.php /var/www/html
+COPY ./srcs/wp-config.php ./
 
 # se mettre dans fichier /tmp car on a tout copie dedans, dans le conteneur, precedemment
-#WORKDIR /tmp
+WORKDIR /tmp
 CMD bash init.sh
 
 #EXPOSE 80 pouet
