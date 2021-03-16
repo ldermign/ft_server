@@ -21,7 +21,7 @@ RUN mv phpMyAdmin-5.0.1-english phpmyadmin
 WORKDIR /tmp
 COPY ./srcs/ .
 
-COPY ./srcs/wp-config.php /var/www/html
+# COPY ./srcs/wp-config.php /var/www/html
 
 WORKDIR /var/www/html/
 # installer wordpress
