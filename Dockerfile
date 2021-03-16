@@ -17,17 +17,16 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-english.
 RUN tar -xf phpMyAdmin-5.0.1-english.tar.gz && rm -rf phpMyAdmin-5.0.1-english.tar.gz
 RUN mv phpMyAdmin-5.0.1-english phpmyadmin
 
-WORKDIR /tmp
 # move dossier srcs dans tmp conteneur
+WORKDIR /tmp
 COPY ./srcs/ .
-COPY ./srcs/config.inc.php ../phpmyadmin/
+
+COPY ./srcs/wp-config.php /var/www/html
 
 WORKDIR /var/www/html/
 # installer wordpress
 RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz
-
-COPY ./srcs/wp-config.php ./
 
 # se mettre dans fichier /tmp car on a tout copie dedans, dans le conteneur, precedemment
 WORKDIR /tmp
