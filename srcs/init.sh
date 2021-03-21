@@ -2,24 +2,16 @@ service nginx start
 service mysql start
 service php7.3-fpm start
 
-#rm /etc/nginx/sites-available/default
-#rm /etc/nginx/sites-enabled/default
-#cp /tmp/default /etc/nginx/sites-available
+rm /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+cp /tmp/default /etc/nginx/sites-available
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
-#ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-#cd /var/www/html/
-#tar -xf phpMyAdmin-5.0.1-english.tar.gz && rm -rf phpMyAdmin-5.0.1-english.tar.gz
-#mv phpMyAdmin-5.0.1-english phpmyadmin
-
-#cp ./srcs/wp-config.php /var/www/html
-
-#tar -xvzf latest.tar.gz && rm -rf latest.tar.gz
+cp ./srcs/wp-config.php /var/www/html
 
 # Configure a wordpress database
-#echo "CREATE DATABASE wordpress;"| mysql -u root --skip-password
-#echo "GRANT ALL ON wordpress.* TO 'root'@'localhost' WITH GRANT OPTION;"| mysql -u root --skip-password
-#echo "FLUSH PRIVILEGES;"| mysql -u root --skip-password
+echo "CREATE DATABASE wordpress;"| mysql -u root --skip-password
+echo "GRANT ALL ON wordpress.* TO 'wordpress_user'@'localhost' WITH GRANT OPTION;"| mysql -u root --skip-password
+echo "FLUSH PRIVILEGES;"| mysql -u root --skip-password
 #echo "update mysql.user set plugin='' where user='root';"| mysql -u root --skip-password
 
 
@@ -35,8 +27,8 @@ service php7.3-fpm start
 #echo "GRANT ALL ON wordpress.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'password';" | mysql -u root
 #echo "FLUSH PRIVILEGES;" | mysql -u root
 
-#service nginx restart
-#service mysql reload
-#service php7.3-fpm restart
+service nginx reload
+service mysql reload
+service php7.3-fpm reload
 
 bash
