@@ -1,17 +1,20 @@
 server {
 	listen 80;
 	listen [::]:80;
+	server_name localhost;
+	return 301 https://$host$request_uri;
+}
 
+server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
 
-	#ssl on;
-	#ssl_certificate /etc/.mkcert/localhost.pem;
-	#ssl_certificate_key /etc/.mkcert/localhost-key.pem;
+	ssl_certificate /etc/.mkcert/localhost.pem;
+	ssl_certificate_key /etc/.mkcert/localhost-key.pem;
 
 	root /var/www/html;
 
-	#autoindex on;
+	autoindex on;
 
 	index index.php index.html index.htm index.nginx-debian.html;
 
@@ -23,10 +26,6 @@ server {
 
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
-
-		# With php-fpm (or other unix sockets):
 		fastcgi_pass unix:/run/php/php7.3-fpm.sock;
-		# With php-cgi (or other tcp sockets):
-		# fastcgi_pass 127.0.0.1:9000;
 	}
 }
